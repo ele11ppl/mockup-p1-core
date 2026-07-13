@@ -68,7 +68,6 @@ export default function BookControls({
   preset, onPresetChange,
   width, onWidthChange, height, onHeightChange,
   coverThickness, onCoverThicknessChange,
-  spineThickness, onSpineThicknessChange,
   pageThickness, onPageThicknessChange,
   coverColor, onCoverColorChange,
   pageEdgeColor, onPageEdgeColorChange,
@@ -116,7 +115,6 @@ export default function BookControls({
         <Slider label="书本宽度" value={width} min={10} max={35} step={0.1} onChange={onWidthChange} />
         <Slider label="书本高度" value={height} min={10} max={35} step={0.1} onChange={onHeightChange} />
         <Slider label="外壳厚度" value={coverThickness} min={0.01} max={0.3} step={0.01} onChange={onCoverThicknessChange} />
-        <Slider label="书脊厚度" value={spineThickness} min={0.01} max={3} step={0.01} onChange={onSpineThicknessChange} />
         <Slider label="内页厚度" value={pageThickness} min={0.5} max={8} step={0.1} onChange={onPageThicknessChange} />
         <div style={{ marginTop: 12 }}>
           <span style={{ fontSize: 10, color: '#999', letterSpacing: '0.1em', display: 'block', marginBottom: 4 }}>书籍位移</span>

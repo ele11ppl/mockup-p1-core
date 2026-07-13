@@ -102,7 +102,6 @@ export default function BookMockupPage() {
             width={cfg.width} onWidthChange={cfg.setWidth}
             height={cfg.height} onHeightChange={cfg.setHeight}
             coverThickness={cfg.coverThickness} onCoverThicknessChange={cfg.setCoverThickness}
-            spineThickness={cfg.spineThickness} onSpineThicknessChange={cfg.setSpineThickness}
             pageThickness={cfg.pageThickness} onPageThicknessChange={cfg.setPageThickness}
             coverColor={cfg.coverColor} onCoverColorChange={cfg.setCoverColor}
             pageEdgeColor={cfg.pageEdgeColor} onPageEdgeColorChange={cfg.setPageEdgeColor}

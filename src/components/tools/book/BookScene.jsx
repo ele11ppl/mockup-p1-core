@@ -141,7 +141,7 @@ export default function BookScene({ config }) {
         <RoundedBox args={[SPINE_W,spineY,COVER_H]} radius={0.008} position={[spineX,0,0]} castShadow receiveShadow>
           <meshStandardMaterial {...solid} />
         </RoundedBox>
-        {spineMap && <mesh position={[spineX-SPINE_W/2-0.003,0,0]} rotation={[0,-Math.PI/2,0]}>
+        {spineMap && <mesh position={[spineX-SPINE_W/2-0.003,0,0]} rotation={[0,-Math.PI/2,-Math.PI/2]}>
           <planeGeometry args={[COVER_H-0.02,spineY-0.02]} />
           <meshStandardMaterial color="#ffffff" map={spineMap} roughness={isDefault?materialIntensity:0.8} metalness={0}
             polygonOffset polygonOffsetFactor={-1} polygonOffsetUnits={-1} /></mesh>}

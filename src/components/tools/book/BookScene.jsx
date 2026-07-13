@@ -4,7 +4,7 @@ import { RoundedBox, useTexture } from '@react-three/drei';
 
 export default function BookScene({ config }) {
   const {
-    width = 15, height = 21, coverThickness = 0.02, spineThickness = 0.13, pageThickness = 1.6,
+    width = 15, height = 21, coverThickness = 0.02, pageThickness = 1.6,
     coverColor = '#000000', pageEdgeColor = '#f5f5dc', ambientIntensity = 0.6, bookRoughness = 0.5,
     materialIntensity = 1,
     shadowOpacity = 0.4, shadowColor = '#000000',
@@ -17,23 +17,22 @@ export default function BookScene({ config }) {
   const bp = bindingPreset;
 
   // Static textures
-  const BASE = import.meta.env.BASE_URL;
-  const hardTex     = useTexture(BASE + 'texture/Hardcover.png');
-  const perfectTex  = useTexture(BASE + 'texture/Perfectbinding.png');
-  const smythTex    = useTexture(BASE + 'texture/Smythsewing.png');
-  const hard2Tex    = useTexture(BASE + 'texture/Hardcover2.png');
-  const perfect2Tex = useTexture(BASE + 'texture/Perfectbinding2.png');
+  const hardTex     = useTexture('/texture/Hardcover.png');
+  const perfectTex  = useTexture('/texture/Perfectbinding.png');
+  const smythTex    = useTexture('/texture/Smythsewing.png');
+  const hard2Tex    = useTexture('/texture/Hardcover2.png');
+  const perfect2Tex = useTexture('/texture/Perfectbinding2.png');
   [hardTex, perfectTex, smythTex, hard2Tex, perfect2Tex].forEach(t => t.colorSpace = THREE.SRGBColorSpace);
 
   // Generated page-lines texture (replaces page.png)
   const pageTex = useMemo(() => {
     const canvas = document.createElement('canvas');
-    canvas.width = 1; canvas.height = 8;
+    canvas.width = 2; canvas.height = 16;
     const ctx = canvas.getContext('2d');
     ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, 1, 8);
-    ctx.fillStyle = '#cccccc';
-    ctx.fillRect(0, 0, 1, 1);
+    ctx.fillRect(0, 0, 2, 16);
+    ctx.fillStyle = '#d0d0c8';
+    ctx.fillRect(0, 0, 2, 2);
     const tex = new THREE.CanvasTexture(canvas);
     tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
     tex.repeat.set(1, 40);
@@ -47,7 +46,7 @@ export default function BookScene({ config }) {
   const [backU,  setBackU]  = useState(null);
   const [spineU, setSpineU] = useState(null);
   useEffect(() => { if (!frontTextureUrl) setFrontU(null); else new THREE.TextureLoader().load(frontTextureUrl, t => { t.colorSpace = THREE.SRGBColorSpace; setFrontU(t); }); }, [frontTextureUrl]);
-  useEffect(() => { if (!backTextureUrl) setBackU(null); else new THREE.TextureLoader().load(backTextureUrl, t => { t.colorSpace = THREE.SRGBColorSpace; t.flipY = false; t.wrapS = THREE.RepeatWrapping; t.repeat.x = -1; t.offset.x = 1; t.needsUpdate = true; setBackU(t); }); }, [backTextureUrl]);
+  useEffect(() => { if (!backTextureUrl)  setBackU(null);  else new THREE.TextureLoader().load(backTextureUrl,  t => { t.colorSpace = THREE.SRGBColorSpace; setBackU(t);  }); }, [backTextureUrl]);
   useEffect(() => { if (!spineTextureUrl) setSpineU(null); else new THREE.TextureLoader().load(spineTextureUrl, t => { t.colorSpace = THREE.SRGBColorSpace; setSpineU(t); }); }, [spineTextureUrl]);
 
   // ── State machine: 4 simple rules ──
@@ -61,13 +60,13 @@ export default function BookScene({ config }) {
   } else if (bp === 'hardcover') {
     frontMap = frontU || hardTex;
     backMap  = backU  || hardTex;
-    spineMap = spineU || null;
+    spineMap = hardTex;
     if (frontU) frontOverlay = hard2Tex;
     if (backU)  backOverlay  = hard2Tex;
   } else if (bp === 'perfect') {
     frontMap = frontU || perfectTex;
     backMap  = backU  || perfectTex;
-    spineMap = spineU || null;
+    spineMap = perfectTex;
     if (frontU) frontOverlay = perfect2Tex;
     if (backU)  backOverlay  = perfect2Tex;
   } else if (bp === 'smyth') {
@@ -80,7 +79,7 @@ export default function BookScene({ config }) {
 
   // Geometry
   const COVER_W = width, COVER_H = height;
-  const SPINE_W = spineThickness;
+  const SPINE_W = coverThickness;
   const PAGE_W = COVER_W - SPINE_W - 0.5;
   const PAGE_H = height - 1;
   const PAGE_T = pageThickness;
@@ -111,7 +110,7 @@ export default function BookScene({ config }) {
         <mesh position={[pageX,0,0]} castShadow receiveShadow>
           <boxGeometry args={[PAGE_W,PAGE_T,PAGE_H]} />
           <meshStandardMaterial color={pageEdgeColor} roughness={0.9} metalness={0}
-            map={isDefault?null:pageTex} />
+            map={pageTex} />
         </mesh>
         {/* Front cover */}
         <RoundedBox args={[COVER_W,coverThickness,COVER_H]} radius={0.008} position={[0,coverY,0]} castShadow receiveShadow>

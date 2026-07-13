@@ -61,13 +61,13 @@ export default function BookScene({ config }) {
   } else if (bp === 'hardcover') {
     frontMap = frontU || hardTex;
     backMap  = backU  || hardTex;
-    spineMap = hardTex;
+    spineMap = spineU || null;
     if (frontU) frontOverlay = hard2Tex;
     if (backU)  backOverlay  = hard2Tex;
   } else if (bp === 'perfect') {
     frontMap = frontU || perfectTex;
     backMap  = backU  || perfectTex;
-    spineMap = perfectTex;
+    spineMap = spineU || null;
     if (frontU) frontOverlay = perfect2Tex;
     if (backU)  backOverlay  = perfect2Tex;
   } else if (bp === 'smyth') {
@@ -90,7 +90,7 @@ export default function BookScene({ config }) {
   const coverY = PAGE_T/2 + coverThickness/2;
   const shadowY = -coverY - coverThickness/2 - 0.015;
 
-  const radius = shadowSize * 0.2;
+  const radius = shadowSize * 0.2 + shadowSpread * 0.02;
   const lRef = useRef();
   useLayoutEffect(() => { if (lRef.current) lRef.current.shadow.radius = radius; }, [radius]);
 

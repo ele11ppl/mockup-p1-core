@@ -14,7 +14,7 @@ export function useBookConfig() {
   const [height, setHeight] = useState(21.0);
   const [coverThickness, setCoverThickness] = useState(0.13);
   const [pageThickness, setPageThickness] = useState(1.3);
-  const [coverColor, setCoverColor] = useState('#000000');
+  const [coverColor, setCoverColor] = useState('#ffffff');
   const [pageEdgeColor, setPageEdgeColor] = useState('#f5f5dc');
   const [ambientIntensity, setAmbientIntensity] = useState(0.6);
   const [bookRoughness, setBookRoughness] = useState(0.5);

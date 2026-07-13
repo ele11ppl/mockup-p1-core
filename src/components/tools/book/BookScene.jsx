@@ -17,11 +17,12 @@ export default function BookScene({ config }) {
   const bp = bindingPreset;
 
   // Static textures
-  const hardTex     = useTexture('/texture/Hardcover.png');
-  const perfectTex  = useTexture('/texture/Perfectbinding.png');
-  const smythTex    = useTexture('/texture/Smythsewing.png');
-  const hard2Tex    = useTexture('/texture/Hardcover2.png');
-  const perfect2Tex = useTexture('/texture/Perfectbinding2.png');
+  const BASE = import.meta.env.BASE_URL;
+  const hardTex     = useTexture(BASE + 'texture/Hardcover.png');
+  const perfectTex  = useTexture(BASE + 'texture/Perfectbinding.png');
+  const smythTex    = useTexture(BASE + 'texture/Smythsewing.png');
+  const hard2Tex    = useTexture(BASE + 'texture/Hardcover2.png');
+  const perfect2Tex = useTexture(BASE + 'texture/Perfectbinding2.png');
   [hardTex, perfectTex, smythTex, hard2Tex, perfect2Tex].forEach(t => t.colorSpace = THREE.SRGBColorSpace);
 
   // Generated page-lines texture (replaces page.png)

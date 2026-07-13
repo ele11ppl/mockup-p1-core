@@ -47,7 +47,7 @@ export default function BookScene({ config }) {
   const [backU,  setBackU]  = useState(null);
   const [spineU, setSpineU] = useState(null);
   useEffect(() => { if (!frontTextureUrl) setFrontU(null); else new THREE.TextureLoader().load(frontTextureUrl, t => { t.colorSpace = THREE.SRGBColorSpace; setFrontU(t); }); }, [frontTextureUrl]);
-  useEffect(() => { if (!backTextureUrl) setBackU(null); else new THREE.TextureLoader().load(backTextureUrl, t => { t.colorSpace = THREE.SRGBColorSpace; t.rotation = Math.PI; t.needsUpdate = true; setBackU(t); }); }, [backTextureUrl]);
+  useEffect(() => { if (!backTextureUrl) { setBackU(null); return; } const img = new Image(); img.onload = () => { const c = document.createElement('canvas'); c.width = img.naturalWidth; c.height = img.naturalHeight; const ctx = c.getContext('2d'); ctx.translate(c.width, c.height); ctx.rotate(Math.PI); ctx.drawImage(img, 0, 0, c.width, c.height); const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.needsUpdate = true; setBackU(tex); }; img.src = backTextureUrl; }, [backTextureUrl]);
   useEffect(() => { if (!spineTextureUrl) setSpineU(null); else new THREE.TextureLoader().load(spineTextureUrl, t => { t.colorSpace = THREE.SRGBColorSpace; setSpineU(t); }); }, [spineTextureUrl]);
 
   // ── State machine: 4 simple rules ──

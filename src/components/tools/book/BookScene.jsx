@@ -4,7 +4,7 @@ import { RoundedBox, useTexture } from '@react-three/drei';
 
 export default function BookScene({ config }) {
   const {
-    width = 15, height = 21, coverThickness = 0.02, pageThickness = 1.6,
+    width = 15, height = 21, coverThickness = 0.02, spineThickness = 0.13, pageThickness = 1.6,
     coverColor = '#000000', pageEdgeColor = '#f5f5dc', ambientIntensity = 0.6, bookRoughness = 0.5,
     materialIntensity = 1,
     shadowOpacity = 0.4, shadowColor = '#000000',
@@ -80,7 +80,7 @@ export default function BookScene({ config }) {
 
   // Geometry
   const COVER_W = width, COVER_H = height;
-  const SPINE_W = coverThickness;
+  const SPINE_W = spineThickness;
   const PAGE_W = COVER_W - SPINE_W - 0.5;
   const PAGE_H = height - 1;
   const PAGE_T = pageThickness;
@@ -90,7 +90,7 @@ export default function BookScene({ config }) {
   const coverY = PAGE_T/2 + coverThickness/2;
   const shadowY = -coverY - coverThickness/2 - 0.015;
 
-  const radius = shadowSize * 0.2 + shadowSpread * 0.02;
+  const radius = shadowSize * 0.2;
   const lRef = useRef();
   useLayoutEffect(() => { if (lRef.current) lRef.current.shadow.radius = radius; }, [radius]);
 

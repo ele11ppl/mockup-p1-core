@@ -13,6 +13,7 @@ export function useBookConfig() {
   const [width, setWidth] = useState(14.8);
   const [height, setHeight] = useState(21.0);
   const [coverThickness, setCoverThickness] = useState(0.13);
+  const [spineThickness, setSpineThickness] = useState(0.13);
   const [pageThickness, setPageThickness] = useState(1.3);
   const [coverColor, setCoverColor] = useState('#ffffff');
   const [pageEdgeColor, setPageEdgeColor] = useState('#f5f5dc');
@@ -42,13 +43,13 @@ export function useBookConfig() {
   const h = presetData ? presetData.height : height;
 
   const config = useMemo(() => ({
-    width: w, height: h, coverThickness, pageThickness,
+    width: w, height: h, coverThickness, spineThickness, pageThickness,
     coverColor, pageEdgeColor, ambientIntensity, bookRoughness, materialIntensity,
     shadowOpacity, shadowColor, shadowSpread, shadowSize, shadowOffX, shadowOffY,
     bookPosX, bookPosY, bookPosZ,
     bindingPreset,
     frontTextureUrl: frontTex, backTextureUrl: backTex, spineTextureUrl: spineTex,
-  }), [w, h, coverThickness, pageThickness, coverColor, pageEdgeColor, ambientIntensity, bookRoughness, materialIntensity, shadowOpacity, shadowColor, shadowSpread, shadowSize, shadowOffX, shadowOffY, bookPosX, bookPosY, bookPosZ, bindingPreset, frontTex, backTex, spineTex]);
+  }), [w, h, coverThickness, spineThickness, pageThickness, coverColor, pageEdgeColor, ambientIntensity, bookRoughness, materialIntensity, shadowOpacity, shadowColor, shadowSpread, shadowSize, shadowOffX, shadowOffY, bookPosX, bookPosY, bookPosZ, bindingPreset, frontTex, backTex, spineTex]);
 
   useEffect(() => () => {
     if (frontTex) URL.revokeObjectURL(frontTex);
@@ -81,6 +82,7 @@ export function useBookConfig() {
     width: w, setWidth: setWidthCustom,
     height: h, setHeight: setHeightCustom,
     coverThickness, setCoverThickness,
+    spineThickness, setSpineThickness,
     pageThickness, setPageThickness,
     coverColor, setCoverColor,
     pageEdgeColor, setPageEdgeColor,

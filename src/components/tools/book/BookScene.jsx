@@ -47,7 +47,7 @@ export default function BookScene({ config }) {
   const [backU,  setBackU]  = useState(null);
   const [spineU, setSpineU] = useState(null);
   useEffect(() => { if (!frontTextureUrl) setFrontU(null); else new THREE.TextureLoader().load(frontTextureUrl, t => { t.colorSpace = THREE.SRGBColorSpace; setFrontU(t); }); }, [frontTextureUrl]);
-  useEffect(() => { if (!backTextureUrl) setBackU(null); else new THREE.TextureLoader().load(backTextureUrl, t => { t.colorSpace = THREE.SRGBColorSpace; t.wrapS = THREE.RepeatWrapping; t.repeat.x = -1; t.offset.x = 1; setBackU(t); }); }, [backTextureUrl]);
+  useEffect(() => { if (!backTextureUrl) setBackU(null); else new THREE.TextureLoader().load(backTextureUrl, t => { t.colorSpace = THREE.SRGBColorSpace; setBackU(t); }); }, [backTextureUrl]);
   useEffect(() => { if (!spineTextureUrl) setSpineU(null); else new THREE.TextureLoader().load(spineTextureUrl, t => { t.colorSpace = THREE.SRGBColorSpace; setSpineU(t); }); }, [spineTextureUrl]);
 
   // ── State machine: 4 simple rules ──
@@ -129,11 +129,11 @@ export default function BookScene({ config }) {
         <RoundedBox args={[COVER_W,coverThickness,COVER_H]} radius={0.008} position={[0,-coverY,0]} castShadow receiveShadow>
           <meshStandardMaterial {...solid} />
         </RoundedBox>
-        {backMap && <mesh position={[0,-coverY-coverThickness/2-0.003,0]} rotation={[Math.PI/2,0,0]}>
+        {backMap && <mesh position={[0,-coverY-coverThickness/2-0.003,0]} rotation={[Math.PI/2,0,Math.PI]}>
           <planeGeometry args={[COVER_W-0.02,COVER_H-0.02]} />
           <meshStandardMaterial color="#ffffff" map={backMap} roughness={isDefault?materialIntensity:0.8} metalness={0}
             polygonOffset polygonOffsetFactor={-1} polygonOffsetUnits={-1} /></mesh>}
-        {backOverlay && <mesh position={[0,-coverY-coverThickness/2-0.006,0]} rotation={[Math.PI/2,0,0]}>
+        {backOverlay && <mesh position={[0,-coverY-coverThickness/2-0.006,0]} rotation={[Math.PI/2,0,Math.PI]}>
           <planeGeometry args={[COVER_W-0.08,COVER_H-0.08]} />
           <meshStandardMaterial color="#ffffff" map={backOverlay} roughness={0.8} metalness={0} transparent opacity={overlayOpacity} alphaTest={0.01}
             polygonOffset polygonOffsetFactor={-2} polygonOffsetUnits={-2} /></mesh>}

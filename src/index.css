@@ -1,0 +1,84 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: #fff;
+  color: #000;
+  user-select: none;
+}
+
+input, textarea, select, [contenteditable] {
+  user-select: text;
+}
+
+/* Minimal range input — thin line, small dot thumb */
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 1px;
+  background: #d4d4d4;
+  outline: none;
+  cursor: pointer;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #000;
+  border: none;
+  cursor: pointer;
+  margin-top: -4.5px;
+  transition: width 0.15s, height 0.15s, background 0.15s, margin-top 0.15s;
+}
+
+input[type='range']::-webkit-slider-thumb:hover {
+  width: 14px;
+  height: 14px;
+  margin-top: -6.5px;
+  background: #333;
+}
+
+input[type='range']::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #000;
+  border: none;
+  cursor: pointer;
+  transition: width 0.15s, height 0.15s, background 0.15s;
+}
+
+input[type='range']::-moz-range-thumb:hover {
+  width: 14px;
+  height: 14px;
+  background: #333;
+}
+
+input[type='range']:hover {
+  background: #bbb;
+}
+
+/* Select arrow reset for Firefox */
+select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Slider label transition */
+.slider-label {
+  transition: color 0.15s;
+}
